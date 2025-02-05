@@ -3,8 +3,6 @@ pragma solidity ^0.8.28;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-import "hardhat/console.sol";
-
 contract PersonalImageGallery is Ownable {
     struct Image {
         string description;
@@ -33,14 +31,5 @@ contract PersonalImageGallery is Ownable {
 
     function getImages() public view returns (Image[] memory) {
         return images;
-    }
-}
-
-contract PersonalImageGalleryFactory {
-    event PersonalImageGalleryCreated(address indexed owner, address gallery);
-
-    function createPersonalImageGallery(address _owner) public {
-        PersonalImageGallery gallery = new PersonalImageGallery(_owner);
-        emit PersonalImageGalleryCreated(_owner, address(gallery));
     }
 }

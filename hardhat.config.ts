@@ -16,11 +16,37 @@ const config: HardhatUserConfig = {
       gas: 5000000,
       // gasPrice: 100000000,
     },
+    polygon: {
+      url: 'https://polygon-rpc.com',
+      accounts: [process.env.DEPLOY_WALLET_1 as string],
+    },
+    base: {
+      url: 'https://mainnet.base.org/',
+      accounts: [process.env.DEPLOY_WALLET_1 as string],
+    },
+    mainnet: {
+      url: 'https://eth.public-rpc.com',
+      accounts: [process.env.DEPLOY_WALLET_1 as string],
+    },
+    optimism: {
+      url: 'https://mainnet.optimism.io',
+      accounts: [process.env.DEPLOY_WALLET_1 as string],
+    },
+    avalanche: {
+      url: 'https://api.avax.network/ext/bc/C/rpc',
+      accounts: [process.env.DEPLOY_WALLET_1 as string],
+    },
+    arbitrum: {
+      url: 'https://arb1.arbitrum.io/rpc',
+      accounts: [process.env.DEPLOY_WALLET_1 as string],
+    },
   },
   etherscan: {
     apiKey: {
       // Is not required by blockscout. Can be any non-empty string
-      'flow': "abc"
+      'flow': "abc",
+      polygon: "abc",
+      base: process.env.BASESCAN_API_KEY as string,
     },
     customChains: [
       {
