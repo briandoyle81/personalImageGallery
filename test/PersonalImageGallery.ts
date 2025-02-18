@@ -76,6 +76,62 @@ describe("PersonalImageGallery", function () {
 
       expect(images.length).to.equal(0);
     });
+
+    it("Should return correct image count", async function () {
+      const { personalImageGallery } = await loadFixture(
+        deployPersonalImageGalleryFixture
+      );
+
+      const image1 = "Test Image 1";
+      const description1 = "First image";
+      const image2 = "Test Image 2";
+      const description2 = "Second image";
+
+      expect(await personalImageGallery.read.getImageCount()).to.equal(0n);
+
+      await personalImageGallery.write.addImage([description1, image1]);
+      expect(await personalImageGallery.read.getImageCount()).to.equal(1n);
+
+      await personalImageGallery.write.addImage([description2, image2]);
+      expect(await personalImageGallery.read.getImageCount()).to.equal(2n);
+
+      await personalImageGallery.write.deleteImage([0n]);
+      expect(await personalImageGallery.read.getImageCount()).to.equal(1n);
+    });
+
+    it("Should return correct image by index", async function () {
+      const { personalImageGallery } = await loadFixture(
+        deployPersonalImageGalleryFixture
+      );
+
+      const image1 = "Test Image 1";
+      const description1 = "First image";
+      const image2 = "Test Image 2";
+      const description2 = "Second image";
+
+      await personalImageGallery.write.addImage([description1, image1]);
+      await personalImageGallery.write.addImage([description2, image2]);
+
+      const firstImage = await personalImageGallery.read.getImage([0n]);
+      expect(firstImage.description).to.equal(description1);
+      expect(firstImage.base64EncodedImage).to.equal(image1);
+
+      const secondImage = await personalImageGallery.read.getImage([1n]);
+      expect(secondImage.description).to.equal(description2);
+      expect(secondImage.base64EncodedImage).to.equal(image2);
+    });
+
+    it("Should revert when accessing invalid index", async function () {
+      const { personalImageGallery } = await loadFixture(
+        deployPersonalImageGalleryFixture
+      );
+
+      await expect(
+        personalImageGallery.read.getImage([0n])
+      ).to.be.rejectedWith(
+        "ImageIndexOutOfBounds(0, 0)"
+      );
+    });
   });
 
   describe("Factory", function () {
