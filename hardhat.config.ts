@@ -40,6 +40,10 @@ const config: HardhatUserConfig = {
       url: 'https://arb1.arbitrum.io/rpc',
       accounts: [process.env.DEPLOY_WALLET_1 as string],
     },
+    bsc: {
+      url: 'https://bsc-dataseed.binance.org/',
+      accounts: [process.env.DEPLOY_WALLET_1 as string],
+    },
   },
   etherscan: {
     apiKey: {
