@@ -11,6 +11,8 @@ contract PersonalImageGallery is Ownable {
 
     Image[] public images;
 
+    error ImageIndexOutOfBounds(uint256 index, uint256 length);
+
     constructor(address _owner) Ownable(_owner) {}
 
     function addImage(
@@ -20,9 +22,10 @@ contract PersonalImageGallery is Ownable {
         images.push(Image(_description, _base64EncodedImage));
     }
 
-    // @dev LOL
     function deleteImage(uint256 index) public onlyOwner {
-        require(index < images.length, "Index out of bounds");
+        if (index >= images.length) {
+            revert ImageIndexOutOfBounds(index, images.length);
+        }
         for (uint256 i = index; i < images.length - 1; i++) {
             images[i] = images[i + 1];
         }
@@ -31,5 +34,16 @@ contract PersonalImageGallery is Ownable {
 
     function getImages() public view returns (Image[] memory) {
         return images;
+    }
+
+    function getImage(uint256 index) public view returns (Image memory) {
+        if (index >= images.length) {
+            revert ImageIndexOutOfBounds(index, images.length);
+        }
+        return images[index];
+    }
+
+    function getImageCount() public view returns (uint256) {
+        return images.length;
     }
 }
