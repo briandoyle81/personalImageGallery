@@ -1,4 +1,5 @@
 {
   "PersonalImageGallery#PersonalImageGallery": "0xA7Cf2260e501952c71189D04FAd17c704DFB36e6",
-  "PersonalImageGalleryFactory#PersonalImageGalleryFactory": "0x7Fa5bAeFaC215128E4A105bFcFFbE00860403995"
+  "PersonalImageGalleryFactory#PersonalImageGalleryFactory": "0x7Fa5bAeFaC215128E4A105bFcFFbE00860403995",
+  "GalleryMinter#GalleryMinter": "0x1bDeCd9efb68717F9AFB02Aa52f31845Dd7CcB92"
 }

@@ -14,10 +14,9 @@ contract MinterFactory {
 
     mapping(address => address[]) userToMinterGalleries;
 
-    function createGalleryAndMinter()
-        public
-        returns (address gallery, address minter)
-    {
+    function createGalleryAndMinter(
+        address _owner
+    ) public returns (address gallery, address minter) {
         // Deploy GalleryMinter first, owned by factory
         GalleryMinter galleryMinter = new GalleryMinter(address(this));
         if (address(galleryMinter) == address(0)) {
@@ -35,15 +34,15 @@ contract MinterFactory {
         // Set the gallery (this will work because factory owns the minter)
         galleryMinter.setGallery(address(personalImageGallery));
 
-        // Transfer minter ownership to msg.sender
-        galleryMinter.transferOwnership(msg.sender);
+        // Transfer minter ownership to owner
+        galleryMinter.transferOwnership(_owner);
 
         emit GalleryCreated(
-            msg.sender,
+            _owner,
             address(personalImageGallery),
             address(galleryMinter)
         );
-        userToMinterGalleries[msg.sender].push(address(personalImageGallery));
+        userToMinterGalleries[_owner].push(address(galleryMinter));
         return (address(personalImageGallery), address(galleryMinter));
     }
 
