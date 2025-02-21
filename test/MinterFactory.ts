@@ -32,7 +32,9 @@ describe("MinterFactory", function () {
         { client: { wallet: account1 } }
       );
 
-      const tx = await minterFactoryAsAccount1.write.createGalleryAndMinter();
+      const tx = await minterFactoryAsAccount1.write.createGalleryAndMinter([
+        account1.account.address
+      ]);
 
       const logs = await publicClient.getContractEvents({
         abi: minterFactory.abi,
@@ -96,7 +98,9 @@ describe("MinterFactory", function () {
         { client: { wallet: account1 } }
       );
 
-      await minterFactoryAsAccount1.write.createGalleryAndMinter();
+      await minterFactoryAsAccount1.write.createGalleryAndMinter([
+        account1.account.address
+      ]);
 
       const logs = await publicClient.getContractEvents({
         abi: minterFactory.abi,
